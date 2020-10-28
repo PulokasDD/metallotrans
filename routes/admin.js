@@ -1,9 +1,10 @@
 import express from 'express';
+
 const router = express.Router();
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.render('main', { title: 'main page' });
+  res.send('admin');
 });
 
 export default router;
