@@ -7,6 +7,11 @@ import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
+mongoose.connect('mongodb://localhost:27017/metallotrans', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const app = express();
 
 // view engine setup
@@ -23,11 +28,6 @@ app.use('/price', priceRouter);
 app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
-
-mongoose.connect('mongodb://localhost:27017/metallotrans', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
