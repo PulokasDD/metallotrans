@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import mongoose from 'mongoose';
 import Admin from './models/admin.js';
 import Customer from './models/customer.js';
@@ -25,7 +26,7 @@ const admin1 = new Admin({
 const customer1 = new Customer({
   email: '456@mail.ru',
   phone: '+456',
-  name: 'Niko'
+  name: 'Niko',
 });
 
 const product1 = new Product({
@@ -35,6 +36,13 @@ const product1 = new Product({
   price: 1000,
 });
 
+const product2 = new Product({
+  title: 'тавр',
+  diameter: 128,
+  quality: 'Б/У',
+  price: 2000,
+});
+
 seed([admin1], Admin);
 seed([customer1], Customer);
-seed([product1], Product);
+seed([product1, product2], Product);
