@@ -25,15 +25,21 @@ const admin1 = new Admin({
 });
 
 const customer1 = new Customer({
-  email: '456@mail.ru',
-  phone: '+456',
+  email: '111@mail.ru',
+  phone: '+111',
   name: 'Niko',
 });
 
 const customer2 = new Customer({
-  email: '789@mail.ru',
-  phone: '+789',
+  email: '222@mail.ru',
+  phone: '+222',
   name: 'Marco',
+});
+
+const customer3 = new Customer({
+  email: '333@mail.ru',
+  phone: '+333',
+  name: 'Vano',
 });
 
 const product1 = new Product({
@@ -51,5 +57,5 @@ const product2 = new Product({
 });
 
 seed([admin1], Admin);
-seed([customer1, customer2], Customer);
+seed([customer1, customer2, customer3], Customer);
 seed([product1, product2], Product);

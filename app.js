@@ -50,7 +50,7 @@ app.use(
 
 app.use((req, res, next) => {
   res.locals.admin = req.session.admin;
-  console.log(res.locals.admin);
+  // console.log(res.locals.admin);
   next();
 });
 

@@ -3,87 +3,134 @@
   INDEX PAGE:
 </div>
 
-<script defer src="/js/client.js"></script>
-
 <button type="click" id="showAll">Показать все!</button>
-<button type="click" id="editCustomer">Редактировать юзера</button>
 
 <p>ТОВАРЫ:</p>
-<table border="1" id="result">
-  <tr>
-    <th>
+<table border="1" id="productId" class="c1">
+  <tr class="c2">
+    <th onclick="sortTable(0, productId)">
       №
     </th>
-    <th>
+    <th onclick="sortTable(1, productId)">
       Товар
     </th>
-    <th>
+    <th onclick="sortTable(2, productId)">
       Диаметр
     </th>
-    <th>
+    <th onclick="sortTable(3, productId)">
       Качество
     </th>
-    <th>
+    <th onclick="sortTable(4, productId)">
       Цена
     </th>
   </tr>
   {{#each arrProduct}}
   <tr>
-    <th>
+    <td>
       {{inc @index}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.title}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.diameter}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.quality}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.price}}
-    </th>
+    </td>
   </tr>
   {{/each}}
 </table>
 
 <p>ЮЗЕРЫ:</p>
-<table border="1" id="result">
-  <tr>
-    <th>
+<table border="1" id="customerId" class="c1">
+  <tr class="c2">
+    <th onclick="sortTable(0, customerId)">
       №
     </th>
-    <th>
+    <th onclick="sortTable(1, customerId)">
       Почта
     </th>
-    <th>
+    <th onclick="sortTable(2, customerId)">
       Телефон
     </th>
-    <th>
+    <th onclick="sortTable(3, customerId)">
       Имя
     </th>
-    <th>
+    <th onclick="sortTable(4, customerId)">
       РЕДАКТИРОВАТЬ:
     </th>
   </tr>
   {{#each arrCustomer}}
   <tr>
-    <th>
+    <td>
       {{inc @index}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.email}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.phone}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.name}}
-    </th>
-    <th>
-      <button type="submit" id={{this.email}}>изменить</button>
-    </th>
+    </td>
+    <td>
+      <button type="click" class="btnCustomer"  value={{this.email}}>изменить</button>
+    </td>
   </tr>
   {{/each}}
 </table>
+
+<br>
+<p>ИЗМЕНИТЬ ДАННЫЕ ПОКУПАТЕЛЯ:</p>
+<form id="changeUser">
+  <input type="text" name="email">
+  <input type="text" name="phone">
+  <input type="text" name="name">
+  <button type="submit" id="saveCustomer">Сохранить</button>
+</form>
+
+<div id="idDel1">here</div>
+
+<script>
+  function sortTable(n, ind) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = ind;
+    switching = true;
+    dir = "asc";
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount ++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
