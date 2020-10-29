@@ -13,10 +13,6 @@ import adminRouter from './routes/admin.js';
 // import Admin from './models/admin';
 // import Customer from './models/customer';
 import Product from './models/product.js';
-mongoose.connect('mongodb://localhost:27017/metallotrans', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 const app = express();
 
