@@ -5,6 +5,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import sha256 from 'sha256';
+import Handlebars from 'hbs';
 
 import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
@@ -24,6 +25,8 @@ mongoose.connect('mongodb://localhost:27017/metallotrans', {
 // view engine setup
 app.set('view engine', 'hbs');
 
+Handlebars.registerHelper('inc', (val) => val + 1);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -41,7 +44,7 @@ app.use(
       secure: false,
       maxAge: 1000 * 60 * 30
     },
-  })
+  }),
 );
 
 app.use((req, res, next) => {
@@ -56,6 +59,8 @@ app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
 // CODE:
+<<
+<< << < HEAD
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -63,10 +68,13 @@ app.get('/', (req, res) => {
 app.get('/show', async (req, res) => {
   const data = await Product.find();
   res.send(data);
-});
+}); ===
+=== = >>>
+>>> > b876e05b9af051d9383774da8c47b6b23f14adfe
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
 
 export default app;
+// npm i -S handlebars

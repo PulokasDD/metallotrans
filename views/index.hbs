@@ -1,3 +1,4 @@
+<script></script>
 <div>
   INDEX PAGE:
 </div>
@@ -8,19 +9,28 @@
   <button type="click" id="show">Показать все</button>
 </form>
 
-<form name="searchProduct">
-  <input type="text" placeholder="Введите имя трубы" name="name">
-  <button type="submit" id="search">Искать</button>
-</form>
+<h3>СПЕЦИФИКАЦИЯ</h3>
 
-<form name="addProduct">
-  <input type="text" name="title">
-  <input type="text" name="diameter">
-  <input type="text" name="quality">
-  <input type="text" name="price">
-  <button id="addProduct">Добавить трубу</button>
-</form>
+<table border="1" id="result">
+        <tr>
+          <th>
+            №
+          </th>
+          <th>
+            Товар
+          </th>
+          <th>
+            Диаметр
+          </th>
+          <th>
+            Качество
+          </th>
+          <th>
+            Цена
+          </th>
+        </tr>
 
+<<<<<<< HEAD
 <div id='result'> --}}
 {{!-- {{#each }}
   <div id='title'>{{this.title}}</div>
@@ -29,3 +39,25 @@
   <div id='price'>{{this.price}}</div>
   {{/each}} --}}
 {{!-- </div> --}}
+=======
+        {{#each data}}
+        <tr>
+          <th>
+            {{inc @index}}
+          </th>
+          <th>
+            {{this.title}}
+          </th>
+          <th>
+            {{this.diameter}}
+          </th>
+          <th>
+            {{this.quality}}
+          </th>
+          <th>
+            {{this.price}}
+          </th>
+        </tr>
+        {{/each}}
+</table>
+>>>>>>> b876e05b9af051d9383774da8c47b6b23f14adfe
