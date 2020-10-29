@@ -16,9 +16,13 @@ router.get('/administratorpanel', (req, res) => {
   }
 });
 
+router.post('/administratorpanel', (req, res) => {
+  
+})
+
 router.get('/administratorpanel/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/admin');
 });
 
 router.post('/', async (req, res) => {
