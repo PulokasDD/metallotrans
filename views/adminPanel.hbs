@@ -1,18 +1,42 @@
 <h1>admin panel</h1>
 <a href="/admin/administratorpanel/logout">logout</a>
 <h2>customers</h2>
-<form name="addUser" action="/admin/administratorpanel" method="post">
-  <input type="text" name="email" id="" placeholder="email">
-  <input type="text" name="phone" id="" placeholder="phone">
-  <input type="text" name="nameCustomer" id="" placeholder="nameCustomer">
+<div id="registerStatusCustomer"></div>
+<form name="addUser" action="/admin/administratorpanel/user" method="post">
+  <input type="text" name="emailCustomer" id="emailCustomer" placeholder="email">
+  <input type="text" name="phone" id="phoneCustomer" placeholder="phone">
+  <input type="text" name="nameCustomer" id="nameCustomer" placeholder="nameCustomer">
+  <input type="text" name="aboutCustomer" id="aboutCustomer" placeholder="about">
   <button type="submit">add</button>
 </form>
 <h2>product</h2>
-<form name="addProduct" action="/admin/administratorpanel" method="post">
-  <input type="text" name="title" id="" placeholder="title">
-  <input type="text" name="email" id="" placeholder="diameter">
-  <input type="text" name="quality" id="" placeholder="quality">
-  <input type="text" name="price" id="" placeholder="price">
+<div id="registerStatusProduct"></div>
+<form name="addProduct" action="/admin/administratorpanel/product" method="post">
+  <input type="text" name="title" id="title" placeholder="title">
+  <input type="text" name="diameter" id="diameter" placeholder="diameter">
+  <input type="text" name="quality" id="quality" placeholder="quality">
+  <input type="text" name="price" id="price" placeholder="price">
   <button type="submit">add</button>
 </form>
+
+<h2>Customers</h2>
+{{#each users}}
+<ul>
+  <li>{{this.email}}</li>
+  <li>{{this.phone}}</li>
+  <li>{{this.name}}</li>
+  <li>{{this.about}}</li>
+</ul>
+{{/each}}
+
+<h2>Products</h2>
+{{#each products}}
+<ul>
+  <li>{{this.title}}</li>
+  <li>{{this.diameter}}</li>
+  <li>{{this.quality}}</li>
+  <li>{{this.price}}</li>
+</ul>
+{{/each}}
+
 <script defer src="/js/adminPanel.js"></script>
