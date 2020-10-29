@@ -9,7 +9,6 @@
   <input type="text" name="aboutCustomer" id="aboutCustomer" placeholder="about">
   <button type="submit">add</button>
 </form>
-<button>Send price</button>
 <h2>product</h2>
 <div id="registerStatusProduct"></div>
 <form name="addProduct" action="/admin/administratorpanel/product" method="post">
@@ -21,23 +20,84 @@
 </form>
 
 <h2>Customers</h2>
-{{#each users}}
-<ul>
-  <li>{{this.email}}</li>
-  <li>{{this.phone}}</li>
-  <li>{{this.name}}</li>
-  <li>{{this.about}}</li>
-</ul>
-{{/each}}
+<table border="1" id="result">
+  <tr>
+    <th>
+      email
+    </th>
+    <th></th>
+    <th>
+      phone number
+    </th>
+    <th>
+      Name
+    </th>
+    <th>
+      Comments
+    </th>
+  </tr>
+
+  {{#each users}}
+  <tr>
+    <th>
+      {{this.email}}
+    </th>
+    <th><button type="submit" value={{this.email}}>send price</button></th>
+    <th>
+      {{this.phone}}
+    </th>
+    <th>
+      {{this.name}}
+    </th>
+    <th>
+      {{this.about}}
+
+    </th>
+  </tr>
+  <tr>
+  </tr>
+  {{/each}}
+</table>
 
 <h2>Products</h2>
-{{#each products}}
-<ul>
-  <li>{{this.title}}</li>
-  <li>{{this.diameter}}</li>
-  <li>{{this.quality}}</li>
-  <li>{{this.price}}</li>
-</ul>
-{{/each}}
+<table border="1" id="result">
+  <tr>
+    <th>
+      №
+    </th>
+    <th>
+      Товар
+    </th>
+    <th>
+      Диаметр
+    </th>
+    <th>
+      Качество
+    </th>
+    <th>
+      Цена
+    </th>
+  </tr>
+
+  {{#each products}}
+  <tr>
+    <th>
+      {{inc @index}}
+    </th>
+    <th>
+      {{this.title}}
+    </th>
+    <th>
+      {{this.diameter}}
+    </th>
+    <th>
+      {{this.quality}}
+    </th>
+    <th>
+      {{this.price}}
+    </th>
+  </tr>
+  {{/each}}
+</table>
 
 <script defer src="/js/adminPanel.js"></script>

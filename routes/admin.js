@@ -13,8 +13,8 @@ router.get('/', function (req, res, next) {
 router.get('/administratorpanel', async (req, res) => {
   const products = await Product.find({});
   const users = await Customer.find({});
-  console.log(products);
-  console.log(users);
+  // console.log(products);
+  // console.log(users);
   if (req.session.admin) {
     res.render('adminPanel', {
       products,

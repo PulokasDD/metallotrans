@@ -58,9 +58,7 @@ app.use('/price', priceRouter);
 app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
-// CODE:
-<<
-<< << < HEAD
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -68,9 +66,7 @@ app.get('/', (req, res) => {
 app.get('/show', async (req, res) => {
   const data = await Product.find();
   res.send(data);
-}); ===
-=== = >>>
->>> > b876e05b9af051d9383774da8c47b6b23f14adfe
+});
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
