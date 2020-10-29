@@ -22,8 +22,13 @@ router.get('/administratorpanel/logout', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { login, password } = req.body;
-  const administartor = await Admin.findOne({ login }).lean();
+  const {
+    login,
+    password
+  } = req.body;
+  const administartor = await Admin.findOne({
+    login
+  }).lean();
   console.log(administartor);
   console.log(login);
   console.log(password);
@@ -36,5 +41,7 @@ router.post('/', async (req, res) => {
     res.status(400).send('incorrect');
   }
 });
+
+
 
 export default router;
