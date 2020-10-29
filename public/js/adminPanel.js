@@ -1,5 +1,5 @@
 // добавление юзеров
-document.forms.addUser?.addEventListener('submit', async (e) => {
+document.forms.addUser.addEventListener('submit', async (e) => {
   e.preventDefault();
   const res = await fetch('/admin/administratorpanel/user', {
     method: 'POST',
@@ -23,7 +23,7 @@ document.forms.addUser?.addEventListener('submit', async (e) => {
 });
 
 // добавление товара
-document.forms.addProduct?.addEventListener('submit', async (e) => {
+document.forms.addProduct.addEventListener('submit', async (e) => {
   e.preventDefault();
   const res = await fetch('/admin/administratorpanel/product', {
     method: 'POST',

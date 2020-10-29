@@ -1,4 +1,4 @@
-document.forms.adminAuth?.addEventListener('submit', async (e) => {
+document.forms.adminAuth.addEventListener('submit', async (e) => {
   e.preventDefault();
   const res = await fetch('/admin', {
     method: 'POST',
