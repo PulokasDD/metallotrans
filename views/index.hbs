@@ -5,12 +5,9 @@
 
 <script defer src="/js/client.js"></script>
 
-<form name="showProduct">
-  <button type="click" id="show">Показать все</button>
-</form>
+<button type="click" id="showAll">Показать все!</button>
 
-<h3>СПЕЦИФИКАЦИЯ</h3>
-
+<p>ТОВАРЫ:</p>
 <table border="1" id="result">
   <tr>
     <th>
@@ -29,8 +26,7 @@
       Цена
     </th>
   </tr>
-
-  {{#each data}}
+  {{#each arrProduct}}
   <tr>
     <th>
       {{inc @index}}
@@ -46,6 +42,40 @@
     </th>
     <th>
       {{this.price}}
+    </th>
+  </tr>
+  {{/each}}
+</table>
+
+<p>ЮЗЕРЫ:</p>
+<table border="1" id="result">
+  <tr>
+    <th>
+      №
+    </th>
+    <th>
+      Почта
+    </th>
+    <th>
+      Телефон
+    </th>
+    <th>
+      Имя
+    </th>
+  </tr>
+  {{#each arrCustomer}}
+  <tr>
+    <th>
+      {{inc @index}}
+    </th>
+    <th>
+      {{this.email}}
+    </th>
+    <th>
+      {{this.phone}}
+    </th>
+    <th>
+      {{this.name}}
     </th>
   </tr>
   {{/each}}

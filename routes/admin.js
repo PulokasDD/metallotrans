@@ -1,12 +1,13 @@
 import express from 'express';
+import sha256 from 'sha256';
 import Admin from '../models/admin.js';
 import Customer from '../models/customer.js';
 import Product from '../models/product.js';
-import sha256 from 'sha256';
+
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('admin');
 });
 
@@ -18,7 +19,7 @@ router.get('/administratorpanel', async (req, res) => {
   if (req.session.admin) {
     res.render('adminPanel', {
       products,
-      users
+      users,
     });
   } else {
     res.redirect('/');
@@ -42,19 +43,19 @@ router.post('/administratorpanel/user', async (req, res) => {
   });
 
   const emailCheck = await Customer.findOne({
-    email: emailCustomer
+    email: emailCustomer,
   });
   const phoneCheck = await Customer.findOne({
-    phone: phoneCustomer
+    phone: phoneCustomer,
   });
 
   if (emailCheck) {
     return res.status(400).send('Customer with this email already registered');
-  } else if (phoneCheck) {
+  } if (phoneCheck) {
     return res.status(400).send('Customer with this phone already registered');
-  } else {
-    await newCustomer.save();
   }
+  await newCustomer.save();
+
   return res.end();
 });
 
@@ -64,13 +65,13 @@ router.post('/administratorpanel/product', async (req, res) => {
     title,
     diameter,
     quality,
-    price
+    price,
   } = req.body;
   const newProduct = new Product({
     title,
     diameter,
     quality,
-    price
+    price,
   });
   if (newProduct) {
     await newProduct.save();
@@ -88,10 +89,10 @@ router.get('/administratorpanel/logout', (req, res) => {
 router.post('/', async (req, res) => {
   const {
     login,
-    password
+    password,
   } = req.body;
   const administartor = await Admin.findOne({
-    login
+    login,
   }).lean();
   // console.log(administartor);
   // console.log(login);
@@ -105,7 +106,5 @@ router.post('/', async (req, res) => {
     res.status(400).send('incorrect');
   }
 });
-
-
 
 export default router;
