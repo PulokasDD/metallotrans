@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import sha256 from 'sha256';
 import Handlebars from 'hbs';
+import bodyParser from 'body-parser';
 
 import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
@@ -27,11 +28,14 @@ app.set('view engine', 'hbs');
 
 Handlebars.registerHelper('inc', (val) => val + 1);
 
+app.use(express.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: false
-}));
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+);
 app.use(cookieParser());
 app.use(express.static('public'));
 
@@ -42,9 +46,9 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
-      maxAge: 1000 * 60 * 30
+      maxAge: 1000 * 60 * 30,
     },
-  }),
+  })
 );
 
 app.use((req, res, next) => {

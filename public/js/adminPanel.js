@@ -22,6 +22,14 @@ document.forms.addUser.addEventListener('submit', async (e) => {
   }
 });
 
+// удаление юзеров
+
+// document.getElementById('customersFun').addEventListener('submit', async (e) => {
+//   e.preventDefault();
+//   const res = await fetch('/admin/administratorpanel/delete')
+//   console.log(e.target);
+// });
+
 // добавление товара
 document.forms.addProduct.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -48,18 +56,74 @@ document.forms.addProduct.addEventListener('submit', async (e) => {
 
 document.getElementById('result').addEventListener('click', async (e) => {
   e.preventDefault();
-  const resp = await fetch('/admin/administratorpanel/sendPrice', {
+  console.log(e.target.innerText);
+  console.log(e.target.id);
+  if (e.target.innerText === 'send price') {
+    const resp = await fetch('/admin/administratorpanel/sendPrice', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        custemail: e.target.value,
+      }),
+    });
+    if (resp.status === 200) {
+      alert('Message sended');
+    } else {
+      console.log('miss SEND button');
+    }
+  } else if (e.target.innerText === 'delete') {
+    const delResp = await fetch('/admin/administratorpanel/user/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: e.target.id,
+      }),
+    });
+    const delResult = await delResp.text();
+    console.log(delResp.status);
+    if (delResp.status === 200) {
+      alert('delete success');
+      window.location.href = '/admin/administratorpanel';
+    } else {
+      alert('something went wrong');
+    }
+  } else if (e.target.innerText === 'edit') {
+    document.getElementById('editDiv').classList.remove('hidden');
+    const resId = fetch('/admin/administratorpanel/user/edit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: e.target.id,
+      }),
+    });
+  }
+});
+
+document.forms.editFormCustomer.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  // console.log(e.target);
+  const editResp = await fetch('/admin/administratorpanel/user/edit', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      custemail: e.target.value,
+      email: document.getElementById('editEmailCustomer').value,
+      phone: document.getElementById('editPhoneCustomer').value,
+      name: document.getElementById('editNameCustomer').value,
+      about: document.getElementById('editAboutCustomer').value,
     }),
-  })
-  if (resp.status === 200) {
-    alert('Message sended')
+  });
+  if (editResp.status === 200) {
+    alert('edit success');
+    window.location.href = '/admin/administratorpanel';
   } else {
-    console.log('miss SEND button');
+    alert('something went wrong');
   }
 });

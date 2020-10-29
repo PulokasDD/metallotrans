@@ -19,13 +19,15 @@
   <button type="submit">add</button>
 </form>
 
-<h2>Customers</h2>
+
 <table border="1" id="result">
   <tr>
     <th>
+      №
+    </th>
+    <th>
       email
     </th>
-    <th></th>
     <th>
       phone number
     </th>
@@ -35,14 +37,20 @@
     <th>
       Comments
     </th>
+    <th>
+      functions
+    </th>
   </tr>
 
   {{#each users}}
   <tr>
     <th>
+      {{inc @index}}
+    </th>
+    <th>
       {{this.email}}
     </th>
-    <th><button id='{{this._id}}' type="submit" value={{this.email}}>send price</button></th>
+
     <th>
       {{this.phone}}
     </th>
@@ -53,11 +61,27 @@
       {{this.about}}
 
     </th>
-  </tr>
-  <tr>
+    <th>
+      <button id='{{this._id}}' type="submit" value={{this.email}}>send price</button>
+      <button id="{{this._id}}" type="submit">delete</button>
+      <button id="{{this._id}}" type="submit">edit</button>
+    </th>
+
+
   </tr>
   {{/each}}
 </table>
+
+<h2>Edit Customers</h2>
+<div id="editDiv" class="hidden">
+  <form name="editFormCustomer" action="/admin/administratorpanel/user/edit" method="post">
+    <input type="text" name="editEmailCustomer" id="editEmailCustomer" placeholder="email">
+    <input type="text" name="editPhoneCustomer" id="editPhoneCustomer" placeholder="phone">
+    <input type="text" name="editNameCustomer" id="editNameCustomer" placeholder="nameCustomer">
+    <input type="text" name="editAboutCustomer" id="editAboutCustomer" placeholder="about">
+    <button id="{{this._id}}" type="submit">add</button>
+  </form>
+</div>
 
 <h2>Products</h2>
 <table border="1" id="result">
@@ -77,6 +101,9 @@
     <th>
       Цена
     </th>
+    <th>
+      functions
+    </th>
   </tr>
 
   {{#each products}}
@@ -95,6 +122,10 @@
     </th>
     <th>
       {{this.price}}
+    </th>
+    <th>
+      <button>edit</button>
+      <button>delete</button>
     </th>
   </tr>
   {{/each}}

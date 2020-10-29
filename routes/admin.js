@@ -19,7 +19,7 @@ router.get('/administratorpanel', async (req, res) => {
   if (req.session.admin) {
     res.render('adminPanel', {
       products,
-      users
+      users,
     });
   } else {
     res.redirect('/');
@@ -43,10 +43,10 @@ router.post('/administratorpanel/user', async (req, res) => {
   });
 
   const emailCheck = await Customer.findOne({
-    email: emailCustomer
+    email: emailCustomer,
   });
   const phoneCheck = await Customer.findOne({
-    phone: phoneCustomer
+    phone: phoneCustomer,
   });
 
   if (emailCheck) {
@@ -59,19 +59,43 @@ router.post('/administratorpanel/user', async (req, res) => {
   return res.end();
 });
 
+// удаление юзеров
+router.post('/administratorpanel/user/delete', async (req, res) => {
+  const id = req.body.id;
+  // console.log(id);
+  if (id) {
+    await Customer.deleteOne({ _id: id });
+    return res.status(200).end();
+  } else {
+    res.redirect('/administratorpanel');
+  }
+});
+
+// редактирование юзеров
+
+router.post('/administratorpanel/user/edit', async (req, res) => {
+  const { id, email, phone, name, about } = req.body;
+  // console.log(id);
+  // await Customer.updateOne({ _id: id }, { email, phone, name, about });
+  console.log(email, phone);
+  let customer = await Customer.findById(id);
+  console.log(customer);
+  customer.email = email;
+  customer.phone = phone;
+  customer.name = name;
+  customer.about = about;
+  await customer.save();
+  res.status(200).end();
+});
+
 // добавление товара
 router.post('/administratorpanel/product', async (req, res) => {
-  const {
-    title,
-    diameter,
-    quality,
-    price
-  } = req.body;
+  const { title, diameter, quality, price } = req.body;
   const newProduct = new Product({
     title,
     diameter,
     quality,
-    price
+    price,
   });
   if (newProduct) {
     await newProduct.save();
@@ -87,12 +111,9 @@ router.get('/administratorpanel/logout', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const {
-    login,
-    password
-  } = req.body;
+  const { login, password } = req.body;
   const administartor = await Admin.findOne({
-    login
+    login,
   }).lean();
   // console.log(administartor);
   // console.log(login);
@@ -108,9 +129,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/administratorpanel/sendPrice', (req, res) => {
-  const {
-    custemail
-  } = req.body;
+  const { custemail } = req.body;
   if (custemail) {
     main(custemail);
     res.send(200).end();
@@ -118,6 +137,5 @@ router.post('/administratorpanel/sendPrice', (req, res) => {
     res.status(400).end();
   }
 });
-
 
 export default router;
