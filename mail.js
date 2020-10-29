@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 // async..await is not allowed in global scope, must use a wrapper
-async function main() {
+async function main(towhom) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let maxcheAccount = await nodemailer.createTestAccount();
@@ -19,8 +19,8 @@ async function main() {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Max Che" <maxche86@gmail.com>', // sender address
-    to: "fuwu-plus@yandex.ru", // list of receivers
+    from: "Max Che", // sender address
+    to: `${towhom}`, // list of receivers
     subject: "Hello ✔ Test", // Subject line
     text: "Test tst test test", // plain text body
     html: "<b>Hello world?</b>", // html body
@@ -34,4 +34,6 @@ async function main() {
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-main().catch(console.error);
+export default main;
+
+// main().catch(console.error);

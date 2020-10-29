@@ -3,6 +3,7 @@ import Admin from '../models/admin.js';
 import Customer from '../models/customer.js';
 import Product from '../models/product.js';
 import sha256 from 'sha256';
+import main from '../mail.js';
 const router = express.Router();
 
 /* GET users listing. */
@@ -106,6 +107,17 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.post('/administratorpanel/sendPrice', (req, res) => {
+  const {
+    custemail
+  } = req.body;
+  if (custemail) {
+    main(custemail);
+    res.send(200).end();
+  } else {
+    res.status(400).end();
+  }
+});
 
 
 export default router;
