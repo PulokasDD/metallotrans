@@ -6,6 +6,7 @@
 <script defer src="/js/client.js"></script>
 
 <button type="click" id="showAll">Показать все!</button>
+<button type="click" id="editCustomer">Редактировать юзера</button>
 
 <p>ТОВАРЫ:</p>
 <table border="1" id="result">
@@ -62,6 +63,9 @@
     <th>
       Имя
     </th>
+    <th>
+      РЕДАКТИРОВАТЬ:
+    </th>
   </tr>
   {{#each arrCustomer}}
   <tr>
@@ -76,6 +80,9 @@
     </th>
     <th>
       {{this.name}}
+    </th>
+    <th>
+      <button type="submit" id={{this.email}}>изменить</button>
     </th>
   </tr>
   {{/each}}

@@ -30,6 +30,12 @@ const customer1 = new Customer({
   name: 'Niko',
 });
 
+const customer2 = new Customer({
+  email: '789@mail.ru',
+  phone: '+789',
+  name: 'Marco',
+});
+
 const product1 = new Product({
   title: 'труба',
   diameter: 256,
@@ -45,5 +51,5 @@ const product2 = new Product({
 });
 
 seed([admin1], Admin);
-seed([customer1], Customer);
+seed([customer1, customer2], Customer);
 seed([product1, product2], Product);
