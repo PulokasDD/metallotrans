@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Admin from './models/admin.js';
 import Customer from './models/customer.js';
 import Product from './models/product.js';
+import sha256 from 'sha256';
 
 mongoose.connect('mongodb://localhost:27017/metallotrans', {
   useNewUrlParser: true,
@@ -19,7 +20,7 @@ async function seed(entries, collection) {
 
 const admin1 = new Admin({
   login: '123@mail.ru',
-  password: '123',
+  password: sha256('123'),
   name: 'Pyotr',
 });
 
