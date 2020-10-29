@@ -9,12 +9,4 @@ const CustomerSchema = mongoose.Schema({
 
 const Customer = mongoose.model('Customer', CustomerSchema);
 export default Customer;
-// import { Schema, model } from 'mongoose';
 
-// const CustomerSchema = mongoose.Schema({
-//   email: { type: String, required: true },
-//   surname: String,
-//   name: String,
-//   patronymic: String,
-//   phone: String,
-// });

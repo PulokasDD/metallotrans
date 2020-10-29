@@ -1,5 +1,5 @@
 // добавление юзеров
-document.forms.addUser?.addEventListener('submit', async (e) => {
+document.forms.addUser.addEventListener('submit', async (e) => {
   e.preventDefault();
   const res = await fetch('/admin/administratorpanel/user', {
     method: 'POST',
@@ -23,7 +23,7 @@ document.forms.addUser?.addEventListener('submit', async (e) => {
 });
 
 // добавление товара
-document.forms.addProduct?.addEventListener('submit', async (e) => {
+document.forms.addProduct.addEventListener('submit', async (e) => {
   e.preventDefault();
   const res = await fetch('/admin/administratorpanel/product', {
     method: 'POST',
@@ -43,5 +43,23 @@ document.forms.addProduct?.addEventListener('submit', async (e) => {
   } else {
     alert('Product added');
     window.location.href = '/admin/administratorpanel';
+  }
+});
+
+document.getElementById('result').addEventListener('click', async (e) => {
+  e.preventDefault();
+  const resp = await fetch('/admin/administratorpanel/sendPrice', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      custemail: e.target.value,
+    }),
+  })
+  if (resp.status === 200) {
+    alert('Message sended')
+  } else {
+    console.log('miss SEND button');
   }
 });

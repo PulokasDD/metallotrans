@@ -5,7 +5,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import sha256 from 'sha256';
-import nodemailer from 'nodemailer';
+import Handlebars from 'hbs';
 
 import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
@@ -25,9 +25,13 @@ mongoose.connect('mongodb://localhost:27017/metallotrans', {
 // view engine setup
 app.set('view engine', 'hbs');
 
+Handlebars.registerHelper('inc', (val) => val + 1);
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static('public'));
 
@@ -36,8 +40,11 @@ app.use(
     secret: 'metallotrans',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, maxAge: 1000 * 60 * 30 },
-  })
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 30
+    },
+  }),
 );
 
 app.use((req, res, next) => {
@@ -51,7 +58,7 @@ app.use('/price', priceRouter);
 app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
-// CODE:
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -66,3 +73,4 @@ app.listen(port, () => {
 });
 
 export default app;
+// npm i -S handlebars
