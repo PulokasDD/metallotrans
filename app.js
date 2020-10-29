@@ -5,6 +5,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import sha256 from 'sha256';
+import nodemailer from 'nodemailer';
 
 import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
