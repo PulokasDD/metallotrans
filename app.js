@@ -10,12 +10,16 @@ import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
+// import Admin from './models/admin';
+// import Customer from './models/customer';
+import Product from './models/product.js';
+
+const app = express();
+
 mongoose.connect('mongodb://localhost:27017/metallotrans', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-const app = express();
 
 // view engine setup
 app.set('view engine', 'hbs');
@@ -46,10 +50,18 @@ app.use('/price', priceRouter);
 app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
+// CODE:
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/show', async (req, res) => {
+  const data = await Product.find();
+  res.send(data);
+});
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
 
 export default app;
-// database branch of Ilya
