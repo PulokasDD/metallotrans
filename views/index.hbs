@@ -1,4 +1,15 @@
-  <div class="background"></div>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ООО "Металлотранс" — Главная страница</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;700&family=Play&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="styles/index-style.css" />
+    <script defer src="js/script.js"></script>
+  </head>
+  <body class="page-body" id="page-body">
+    <div class="background"></div>
     <header class="page-header">
       <div class="page-header__top">
         <ul class="page-header__nav-list">
@@ -162,48 +173,9 @@
           </div>
        </div>
       </section>
+      <footer class="afterword"> <div class="afterword__logo">ООО "МеталлоТранс"</div>
+        Если вы владелец трубопровода или трубы б/у, мы будем рады сотрудничеству. Приобретаем трубы диаметром от 159 до <span class="no-wrap">1220 мм</span>. <br />
+        <div class="afterword__contact-us">Подробности по тел.: <a href="tel:89299422120"> 8 (929) 942-21-20</a></div></footer>
     </main>
-    <footer class="afterword"> <div class="afterword__logo">ООО "МеталлоТранс"</div>
-      Если вы владелец трубопровода или трубы б/у, мы будем рады сотрудничеству. Приобретаем трубы диаметром от 159 до <span class="no-wrap">1220 мм</span>. <br />
-      <div class="afterword__contact-us">Подробности по тел.:< /br> <a href="tel:89299422120"> 8 (929) 942-21-20</a></div>
-    </footer>
-
-<p>ТОВАРЫ:</p>
-<table border="1" id="resultProducts" class="c1">
-  <tr class="c2">
-    <th onclick="sortTable(0, resultProducts)">
-      №
-    </th>
-    <th onclick="sortTable(1, resultProducts)">
-      Товар
-    </th>
-    <th onclick="sortTable(2, resultProducts)">
-      Диаметр
-    </th>
-    <th onclick="sortTable(3, resultProducts)">
-      Качество
-    </th>
-    <th onclick="sortTable(4, resultProducts)">
-      Цена
-    </th>
-  </tr>
-  {{#each arrProduct}}
-  <tr>
-    <td>
-      {{{inc @index}}}
-    </td>
-    <td>
-      {{this.title}}
-    </td>
-    <td>
-      {{this.diameter}}
-    </td>
-    <td>
-      {{this.quality}}
-    </td>
-    <td>
-      {{this.price}}
-    </td>
-  </tr>
-  {{/each}}
-</table>
+  </body>
+</html>

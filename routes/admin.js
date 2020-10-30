@@ -63,7 +63,7 @@ router.post('/administratorpanel/user/delete', async (req, res) => {
   const id = req.body.id;
   if (id) {
     await Customer.deleteOne({
-      _id: id
+      _id: id,
     });
     return res.status(200).end();
   } else {
@@ -73,18 +73,12 @@ router.post('/administratorpanel/user/delete', async (req, res) => {
 
 // редактирование юзеров
 router.post('/administratorpanel/user/edit', async (req, res) => {
-  const {
-    id,
-    email,
-    phone,
-    name,
-    about
-  } = req.body;
+  const { id, email, phone, name, about } = req.body;
   const emailCheck = await Customer.findOne({
-    email
+    email,
   });
   const phoneCheck = await Customer.findOne({
-    phone
+    phone,
   });
 
   if (emailCheck) {
@@ -105,12 +99,7 @@ router.post('/administratorpanel/user/edit', async (req, res) => {
 
 // добавление товара
 router.post('/administratorpanel/product', async (req, res) => {
-  const {
-    title,
-    diameter,
-    quality,
-    price,
-  } = req.body;
+  const { title, diameter, quality, price } = req.body;
   const newProduct = new Product({
     title,
     diameter,
@@ -133,10 +122,8 @@ router.get('/administratorpanel/logout', (req, res) => {
 
 // валидация админа
 router.post('/', async (req, res) => {
-  const {
-    login,
-    password,
-  } = req.body;
+  const { login, password } = req.body;
+  // console.log(sha256(password));
   const administartor = await Admin.findOne({
     login,
   }).lean();
@@ -155,7 +142,7 @@ router.post('/administratorpanel/product/delete', async (req, res) => {
   const id = req.body.id;
   if (id) {
     await Product.deleteOne({
-      _id: id
+      _id: id,
     });
     return res.status(200).end();
   } else {
@@ -165,13 +152,7 @@ router.post('/administratorpanel/product/delete', async (req, res) => {
 
 // редактировние товара
 router.post('/administratorpanel/product/edit', async (req, res) => {
-  const {
-    id,
-    title,
-    diameter,
-    quality,
-    price
-  } = req.body;
+  const { id, title, diameter, quality, price } = req.body;
   let product = await Product.findById(id);
   if (product) {
     product.title = title;
@@ -185,9 +166,7 @@ router.post('/administratorpanel/product/edit', async (req, res) => {
 
 // отправка писем
 router.post('/administratorpanel/sendPrice', (req, res) => {
-  const {
-    custemail
-  } = req.body;
+  const { custemail } = req.body;
   if (custemail) {
     mailer(custemail);
     res.status(200).end();

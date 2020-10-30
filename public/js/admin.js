@@ -10,8 +10,9 @@ document.forms.adminAuth.addEventListener('submit', async (e) => {
       password: document.getElementById('adminPass').value,
     }),
   });
+  console.log(res.body);
+
   const result = await res.text();
-  console.log(result);
   if (result === 'success') {
     window.location.href = '/admin/administratorpanel';
   } else if (result === 'incorrect') {

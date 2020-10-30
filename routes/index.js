@@ -7,7 +7,8 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const arrProduct = await Product.find();
   res.render('index', {
-    arrProduct
+    arrProduct,
+    layout: false,
   });
 });
 
