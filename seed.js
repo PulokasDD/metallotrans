@@ -5,17 +5,17 @@ import Customer from './models/customer.js';
 import Product from './models/product.js';
 import sha256 from 'sha256';
 
-mongoose.connect('mongodb://localhost:27017/metallotrans', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect('mongodb+srv://Ilya:12123@cluster0.fjvtz.mongodb.net/metallotrans?retryWrites=true&w=majority', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-async function seed(entries, collection) {
+async function seed(arr, collection) {
   await mongoose.connection.dropDatabase();
 
-  await collection.insertMany(entries);
+  await collection.insertMany(arr);
 
-  await mongoose.disconnect();
+  // await mongoose.disconnect();
 }
 
 const admin1 = new Admin({
@@ -33,7 +33,7 @@ const customer1 = new Customer({
 const customer2 = new Customer({
   email: '222@mail.ru',
   phone: '+222',
-  name: 'Marco',
+  name: 'Milosh',
 });
 
 const customer3 = new Customer({
@@ -56,6 +56,14 @@ const product2 = new Product({
   price: 2000,
 });
 
-seed([admin1], Admin);
-seed([customer1, customer2, customer3], Customer);
-seed([product1, product2], Product);
+// seed([admin1], Admin);
+// seed([customer1, customer2, customer3], Customer);
+// seed([product1, product2], Product);
+
+function seedNow() {
+  seed([admin1], Admin);
+  seed([customer1, customer2, customer3], Customer);
+  seed([product1, product2], Product);
+}
+
+export default seedNow;

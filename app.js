@@ -12,16 +12,25 @@ import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
+import seedNow from './seed.js';
+
 // import Admin from './models/admin.js';
 // import Customer from './models/customer.js';
 // import Product from './models/product.js';
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/metallotrans', {
+mongoose.connect('mongodb+srv://Ilya:12123@cluster0.fjvtz.mongodb.net/metallotrans?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+}, (err) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log('OKOKOK');
 });
+
+seedNow();
 
 // view engine setup
 app.set('view engine', 'hbs');
@@ -67,9 +76,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
-
-
-
 
 export default app;
 // npm i -S handlebars
