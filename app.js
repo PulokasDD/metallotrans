@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
@@ -12,22 +13,30 @@ import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
-import Product from './models/product.js';
+// import seedNow from './seed.js';
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/metallotrans', {
+mongoose.connect('mongodb+srv://Ilya:12123@cluster0.fjvtz.mongodb.net/metallotrans?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+}, (err) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log('DB connected');
 });
+
+// seedNow();
 
 // view engine setup
 app.set('view engine', 'hbs');
 
 Handlebars.registerHelper('inc', (val) => val + 1);
 
+app.set('trust proxy', 1);
 app.use(express.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(logger('dev'));
 app.use(express.json());
@@ -46,12 +55,12 @@ app.use(
       secure: false,
       maxAge: 1000 * 60 * 30,
     },
-  })
+  }),
 );
 
 app.use((req, res, next) => {
   res.locals.admin = req.session.admin;
-  console.log(res.locals.admin);
+  // console.log(res.locals.admin);
   next();
 });
 
@@ -61,18 +70,8 @@ app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/show', async (req, res) => {
-  const data = await Product.find();
-  res.send(data);
-});
-
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
 
 export default app;
-// npm i -S handlebars

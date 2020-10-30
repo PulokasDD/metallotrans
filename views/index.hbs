@@ -1,54 +1,45 @@
-<script></script>
 <div>
   INDEX PAGE:
 </div>
 
-<script defer src="/js/client.js"></script>
+<p>ТОВАРЫ:</p>
+<table border="1" id="resultProducts" class="c1">
+  <tr class="c2">
+    <th onclick="sortTable(0, resultProducts)">
+      №
+    </th>
+    <th onclick="sortTable(1, resultProducts)">
+      Товар
+    </th>
+    <th onclick="sortTable(2, resultProducts)">
+      Диаметр
+    </th>
+    <th onclick="sortTable(3, resultProducts)">
+      Качество
+    </th>
+    <th onclick="sortTable(4, resultProducts)">
+      Цена
+    </th>
+  </tr>
+  {{#each arrProduct}}
+  <tr>
+    <td>
+      {{inc @index}}
+    </td>
+    <td>
+      {{this.title}}
+    </td>
+    <td>
+      {{this.diameter}}
+    </td>
+    <td>
+      {{this.quality}}
+    </td>
+    <td>
+      {{this.price}}
+    </td>
+  </tr>
+  {{/each}}
+</table>
 
-<form name="showProduct">
-  <button type="click" id="show">Показать все</button>
-</form>
-
-<div class='priceList'>
-  <h3>СПЕЦИФИКАЦИЯ</h3>
-
-  <table border="1" id="result">
-    <tr>
-      <th>
-        №
-      </th>
-      <th>
-        Товар
-      </th>
-      <th>
-        Диаметр
-      </th>
-      <th>
-        Качество
-      </th>
-      <th>
-        Цена
-      </th>
-    </tr>
-
-    {{#each data}}
-    <tr>
-      <th>
-        {{!-- {{ inc @index }} --}}#
-      </th>
-      <th>
-        {{this.title}}
-      </th>
-      <th>
-        {{this.diameter}}
-      </th>
-      <th>
-        {{this.quality}}
-      </th>
-      <th>
-        {{this.price}}
-      </th>
-    </tr>
-    {{/each}}
-  </table>
-</div>
+<script defer src="/js/tableSort.js"></script>

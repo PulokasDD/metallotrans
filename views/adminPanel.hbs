@@ -1,148 +1,148 @@
-<h1>admin panel</h1>
-<a href="/admin/administratorpanel/logout">logout</a>
-<h2>customers</h2>
+<h1>Личный кабинет администратора</h1>
+<a href="/admin/administratorpanel/logout">Выйти</a>
+<h2>Добавить клиента</h2>
 <div id="registerStatusCustomer"></div>
 <form name="addUser" action="/admin/administratorpanel/user" method="post">
   <input type="text" name="emailCustomer" id="emailCustomer" placeholder="email">
   <input type="text" name="phone" id="phoneCustomer" placeholder="phone">
   <input type="text" name="nameCustomer" id="nameCustomer" placeholder="nameCustomer">
   <input type="text" name="aboutCustomer" id="aboutCustomer" placeholder="about">
-  <button type="submit">add</button>
-</form>
-<h2>product</h2>
-<div id="registerStatusProduct"></div>
-<form name="addProduct" action="/admin/administratorpanel/product" method="post">
-  <input type="text" name="title" id="title" placeholder="title">
-  <input type="text" name="diameter" id="diameter" placeholder="diameter">
-  <input type="text" name="quality" id="quality" placeholder="quality">
-  <input type="text" name="price" id="price" placeholder="price">
-  <button type="submit">add</button>
+  <button type="submit">Добавить</button>
 </form>
 
-
-<table border="1" id="result">
-  <tr>
-    <th>
+<h2>Клиенты</h2>
+<table id="result" class="c1">
+  <tr class="c2">
+    <th onclick="sortTable(0, result)">
       №
     </th>
-    <th>
-      email
+    <th onclick="sortTable(1, result)">
+      Почта
+    </th>
+    <th onclick="sortTable(2, result)">
+      Телефон
+    </th>
+    <th onclick="sortTable(3, result)">
+      Имя
+    </th>
+    <th onclick="sortTable(4, result)">
+      Примечания
     </th>
     <th>
-      phone number
-    </th>
-    <th>
-      Name
-    </th>
-    <th>
-      Comments
-    </th>
-    <th>
-      functions
+      Редактировать
     </th>
   </tr>
 
   {{#each users}}
   <tr>
-    <th>
+    <td>
       {{inc @index}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.email}}
-    </th>
+    </td>
 
-    <th>
+    <td>
       {{this.phone}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.name}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.about}}
 
-    </th>
-    <th>
+    </td>
+    <td>
       <button data-id='{{this._id}}' type="submit" value={{this.email}}>send price</button>
-      <button data-id="{{this._id}}" type="submit">delete</button>
       <button data-id="{{this._id}}" type="submit">edit</button>
-    </th>
-
-
+      <button data-id="{{this._id}}" type="submit">delete</button>
+    </td>
   </tr>
   {{/each}}
 </table>
 
 <div id="editUsersStatus"></div>
 <div id="editDiv" class="hidden">
-  <h2>Edit Customers</h2>
+  <h2>Редактировать клиента</h2>
   <form name="editFormCustomer" action="/admin/administratorpanel/user/edit" method="post">
     <input type="text" name="editEmailCustomer" id="editEmailCustomer" placeholder="email">
     <input type="text" name="editPhoneCustomer" id="editPhoneCustomer" placeholder="phone">
     <input type="text" name="editNameCustomer" id="editNameCustomer" placeholder="nameCustomer">
     <input type="text" name="editAboutCustomer" id="editAboutCustomer" placeholder="about">
     <input type="hidden" name="id" id="hiddenInput">
-    <button type="submit">add</button>
+    <button type="submit">Обновить</button>
   </form>
 </div>
 
-<h2>Products</h2>
-<table border="1" id="resultProducts">
-  <tr>
-    <th>
+<h2>Добавить товар</h2>
+<div id="registerStatusProduct"></div>
+<form name="addProduct" action="/admin/administratorpanel/product" method="post">
+  <input type="text" name="title" id="title" placeholder="title">
+  <input type="text" name="diameter" id="diameter" placeholder="diameter">
+  <input type="text" name="quality" id="quality" placeholder="quality">
+  <input type="text" name="price" id="price" placeholder="price">
+  <button type="submit">Добавить</button>
+</form>
+
+<h2>Товары</h2>
+<table id="resultProducts" class="c1">
+  <tr class="c2">
+    <th onclick="sortTable(0, resultProducts)">
       №
     </th>
-    <th>
+    <th onclick="sortTable(1, resultProducts)">
       Товар
     </th>
-    <th>
+    <th onclick="sortTable(2, resultProducts)">
       Диаметр
     </th>
-    <th>
+    <th onclick="sortTable(3, resultProducts)">
       Качество
     </th>
-    <th>
+    <th onclick="sortTable(4, resultProducts)">
       Цена
     </th>
     <th>
-      functions
+      Редактировать
     </th>
   </tr>
 
   {{#each products}}
   <tr>
-    <th>
+    <td>
       {{inc @index}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.title}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.diameter}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.quality}}
-    </th>
-    <th>
+    </td>
+    <td>
       {{this.price}}
-    </th>
-    <th>
+    </td>
+    <td>
       <button type="submit" data-id="{{this._id}}">edit</button>
       <button type="submit" data-id="{{this._id}}">delete</button>
-    </th>
+    </td>
   </tr>
   {{/each}}
 </table>
 
 <div id="editDivProduct" class="hidden">
-  <h2>Edit Products</h2>
+  <h2>Редактировать товар</h2>
   <form name="editProductForm" action="/administratorpanel/product/delete" method="post">
     <input type="text" name="editTitleProduct" id="editTitleProduct" placeholder="title">
     <input type="text" name="editDiameterProduct" id="editDiameterProduct" placeholder="diameter">
     <input type="text" name="editQualityProduct" id="editQualityProduct" placeholder="quality">
     <input type="text" name="editPriceProduct" id="editPriceProduct" placeholder="price">
     <input type="hidden" name="id" id="hiddenInputProduct">
-    <button type="submit">add</button>
+    <button type="submit">Обновить</button>
   </form>
 </div>
 
+<script defer src="/js/tableSort.js"></script>
 <script defer src="/js/adminPanel.js"></script>
