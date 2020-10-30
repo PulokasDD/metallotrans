@@ -1,6 +1,9 @@
 import nodemailer from 'nodemailer';
 import gbs from 'nodemailer-express-handlebars';
 import Product from './models/product.js';
+// import Handlebars from 'hbs';
+
+// Handlebars.registerHelper('inc', (val) => val + 1);
 
 const options = {
   viewEngine: {
