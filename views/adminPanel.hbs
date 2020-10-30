@@ -19,13 +19,15 @@
   <button type="submit">add</button>
 </form>
 
-<h2>Customers</h2>
+
 <table border="1" id="result">
   <tr>
     <th>
+      №
+    </th>
+    <th>
       email
     </th>
-    <th></th>
     <th>
       phone number
     </th>
@@ -35,14 +37,20 @@
     <th>
       Comments
     </th>
+    <th>
+      functions
+    </th>
   </tr>
 
   {{#each users}}
   <tr>
     <th>
+      {{inc @index}}
+    </th>
+    <th>
       {{this.email}}
     </th>
-    <th><button id='{{this._id}}' type="submit" value={{this.email}}>send price</button></th>
+
     <th>
       {{this.phone}}
     </th>
@@ -53,14 +61,32 @@
       {{this.about}}
 
     </th>
-  </tr>
-  <tr>
+    <th>
+      <button data-id='{{this._id}}' type="submit" value={{this.email}}>send price</button>
+      <button data-id="{{this._id}}" type="submit">delete</button>
+      <button data-id="{{this._id}}" type="submit">edit</button>
+    </th>
+
+
   </tr>
   {{/each}}
 </table>
 
+<div id="editUsersStatus"></div>
+<div id="editDiv" class="hidden">
+  <h2>Edit Customers</h2>
+  <form name="editFormCustomer" action="/admin/administratorpanel/user/edit" method="post">
+    <input type="text" name="editEmailCustomer" id="editEmailCustomer" placeholder="email">
+    <input type="text" name="editPhoneCustomer" id="editPhoneCustomer" placeholder="phone">
+    <input type="text" name="editNameCustomer" id="editNameCustomer" placeholder="nameCustomer">
+    <input type="text" name="editAboutCustomer" id="editAboutCustomer" placeholder="about">
+    <input type="hidden" name="id" id="hiddenInput">
+    <button type="submit">add</button>
+  </form>
+</div>
+
 <h2>Products</h2>
-<table border="1" id="result">
+<table border="1" id="resultProducts">
   <tr>
     <th>
       №
@@ -76,6 +102,9 @@
     </th>
     <th>
       Цена
+    </th>
+    <th>
+      functions
     </th>
   </tr>
 
@@ -96,8 +125,24 @@
     <th>
       {{this.price}}
     </th>
+    <th>
+      <button type="submit" data-id="{{this._id}}">edit</button>
+      <button type="submit" data-id="{{this._id}}">delete</button>
+    </th>
   </tr>
   {{/each}}
 </table>
+
+<div id="editDivProduct" class="hidden">
+  <h2>Edit Products</h2>
+  <form name="editProductForm" action="/administratorpanel/product/delete" method="post">
+    <input type="text" name="editTitleProduct" id="editTitleProduct" placeholder="title">
+    <input type="text" name="editDiameterProduct" id="editDiameterProduct" placeholder="diameter">
+    <input type="text" name="editQualityProduct" id="editQualityProduct" placeholder="quality">
+    <input type="text" name="editPriceProduct" id="editPriceProduct" placeholder="price">
+    <input type="hidden" name="id" id="hiddenInputProduct">
+    <button type="submit">add</button>
+  </form>
+</div>
 
 <script defer src="/js/adminPanel.js"></script>
