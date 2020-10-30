@@ -62,9 +62,9 @@
 
     </th>
     <th>
-      <button id='{{this._id}}' type="submit" value={{this.email}}>send price</button>
-      <button id="{{this._id}}" type="submit">delete</button>
-      <button id="{{this._id}}" type="submit">edit</button>
+      <button data-id='{{this._id}}' type="submit" value={{this.email}}>send price</button>
+      <button data-id="{{this._id}}" type="submit">delete</button>
+      <button data-id="{{this._id}}" type="submit">edit</button>
     </th>
 
 
@@ -72,19 +72,21 @@
   {{/each}}
 </table>
 
-<h2>Edit Customers</h2>
+<div id="editUsersStatus"></div>
 <div id="editDiv" class="hidden">
+  <h2>Edit Customers</h2>
   <form name="editFormCustomer" action="/admin/administratorpanel/user/edit" method="post">
     <input type="text" name="editEmailCustomer" id="editEmailCustomer" placeholder="email">
     <input type="text" name="editPhoneCustomer" id="editPhoneCustomer" placeholder="phone">
     <input type="text" name="editNameCustomer" id="editNameCustomer" placeholder="nameCustomer">
     <input type="text" name="editAboutCustomer" id="editAboutCustomer" placeholder="about">
-    <button id="{{this._id}}" type="submit">add</button>
+    <input type="hidden" name="id" id="hiddenInput">
+    <button type="submit">add</button>
   </form>
 </div>
 
 <h2>Products</h2>
-<table border="1" id="result">
+<table border="1" id="resultProducts">
   <tr>
     <th>
       №
@@ -124,11 +126,23 @@
       {{this.price}}
     </th>
     <th>
-      <button>edit</button>
-      <button>delete</button>
+      <button type="submit" data-id="{{this._id}}">edit</button>
+      <button type="submit" data-id="{{this._id}}">delete</button>
     </th>
   </tr>
   {{/each}}
 </table>
+
+<div id="editDivProduct" class="hidden">
+  <h2>Edit Products</h2>
+  <form name="editProductForm" action="/administratorpanel/product/delete" method="post">
+    <input type="text" name="editTitleProduct" id="editTitleProduct" placeholder="title">
+    <input type="text" name="editDiameterProduct" id="editDiameterProduct" placeholder="diameter">
+    <input type="text" name="editQualityProduct" id="editQualityProduct" placeholder="quality">
+    <input type="text" name="editPriceProduct" id="editPriceProduct" placeholder="price">
+    <input type="hidden" name="id" id="hiddenInputProduct">
+    <button type="submit">add</button>
+  </form>
+</div>
 
 <script defer src="/js/adminPanel.js"></script>

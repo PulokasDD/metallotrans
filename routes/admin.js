@@ -14,8 +14,6 @@ router.get('/', function (req, res, next) {
 router.get('/administratorpanel', async (req, res) => {
   const products = await Product.find({});
   const users = await Customer.find({});
-  // console.log(products);
-  // console.log(users);
   if (req.session.admin) {
     res.render('adminPanel', {
       products,
@@ -62,7 +60,6 @@ router.post('/administratorpanel/user', async (req, res) => {
 // удаление юзеров
 router.post('/administratorpanel/user/delete', async (req, res) => {
   const id = req.body.id;
-  // console.log(id);
   if (id) {
     await Customer.deleteOne({ _id: id });
     return res.status(200).end();
@@ -72,20 +69,25 @@ router.post('/administratorpanel/user/delete', async (req, res) => {
 });
 
 // редактирование юзеров
-
 router.post('/administratorpanel/user/edit', async (req, res) => {
   const { id, email, phone, name, about } = req.body;
-  // console.log(id);
-  // await Customer.updateOne({ _id: id }, { email, phone, name, about });
-  console.log(email, phone);
-  let customer = await Customer.findById(id);
-  console.log(customer);
-  customer.email = email;
-  customer.phone = phone;
-  customer.name = name;
-  customer.about = about;
-  await customer.save();
-  res.status(200).end();
+  const emailCheck = await Customer.findOne({ email });
+  const phoneCheck = await Customer.findOne({ phone });
+
+  if (emailCheck) {
+    return res.status(400).send('Customer with this email already registered');
+  } else if (phoneCheck) {
+    return res.status(400).send('Customer with this phone already registered');
+  } else {
+    let customer = await Customer.findById(id);
+    console.log(customer);
+    customer.email = email;
+    customer.phone = phone;
+    customer.name = name;
+    customer.about = about;
+    await customer.save();
+    res.status(200).end();
+  }
 });
 
 // добавление товара
@@ -105,19 +107,18 @@ router.post('/administratorpanel/product', async (req, res) => {
   return res.end();
 });
 
+// logout
 router.get('/administratorpanel/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/admin');
 });
 
+// валидация админа
 router.post('/', async (req, res) => {
   const { login, password } = req.body;
   const administartor = await Admin.findOne({
     login,
   }).lean();
-  // console.log(administartor);
-  // console.log(login);
-  // console.log(password);
   if (administartor) {
     if (sha256(password) === administartor.password) {
       req.session.admin = administartor.login;
@@ -128,11 +129,37 @@ router.post('/', async (req, res) => {
   }
 });
 
+// удаление товаров
+router.post('/administratorpanel/product/delete', async (req, res) => {
+  const id = req.body.id;
+  if (id) {
+    await Product.deleteOne({ _id: id });
+    return res.status(200).end();
+  } else {
+    res.redirect('/administratorpanel');
+  }
+});
+
+// редактировние товара
+router.post('/administratorpanel/product/edit', async (req, res) => {
+  const { id, title, diameter, quality, price } = req.body;
+  let product = await Product.findById(id);
+  if (product) {
+    product.title = title;
+    product.diameter = diameter;
+    product.quality = quality;
+    product.price = price;
+    await product.save();
+    res.status(200).end();
+  }
+});
+
+// отправка писем
 router.post('/administratorpanel/sendPrice', (req, res) => {
   const { custemail } = req.body;
   if (custemail) {
     main(custemail);
-    res.send(200).end();
+    res.status(200).end();
   } else {
     res.status(400).end();
   }
