@@ -11,8 +11,6 @@ import indexRouter from './routes/index.js';
 import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
-// import Admin from './models/admin';
-// import Customer from './models/customer';
 import Product from './models/product.js';
 
 const app = express();
@@ -30,7 +28,7 @@ Handlebars.registerHelper('inc', (val) => val + 1);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+  extended: false,
 }));
 app.use(cookieParser());
 app.use(express.static('public'));

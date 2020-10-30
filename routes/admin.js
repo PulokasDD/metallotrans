@@ -1,13 +1,14 @@
 import express from 'express';
+import sha256 from 'sha256';
 import Admin from '../models/admin.js';
 import Customer from '../models/customer.js';
 import Product from '../models/product.js';
-import sha256 from 'sha256';
-import main from '../mail.js';
+import main from '../mailer.js';
+
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res) => {
   res.render('admin');
 });
 
@@ -19,7 +20,7 @@ router.get('/administratorpanel', async (req, res) => {
   if (req.session.admin) {
     res.render('adminPanel', {
       products,
-      users
+      users,
     });
   } else {
     res.redirect('/');
@@ -43,20 +44,20 @@ router.post('/administratorpanel/user', async (req, res) => {
   });
 
   const emailCheck = await Customer.findOne({
-    email: emailCustomer
+    email: emailCustomer,
   });
   const phoneCheck = await Customer.findOne({
-    phone: phoneCustomer
+    phone: phoneCustomer,
   });
 
   if (emailCheck) {
-    return res.status(400).send('Customer with this email already registered');
+    res.status(400).send('Customer with this email already registered');
   } else if (phoneCheck) {
-    return res.status(400).send('Customer with this phone already registered');
+    res.status(400).send('Customer with this phone already registered');
   } else {
     await newCustomer.save();
   }
-  return res.end();
+  res.end();
 });
 
 // добавление товара
@@ -65,13 +66,13 @@ router.post('/administratorpanel/product', async (req, res) => {
     title,
     diameter,
     quality,
-    price
+    price,
   } = req.body;
   const newProduct = new Product({
     title,
     diameter,
     quality,
-    price
+    price,
   });
   if (newProduct) {
     await newProduct.save();
@@ -89,10 +90,10 @@ router.get('/administratorpanel/logout', (req, res) => {
 router.post('/', async (req, res) => {
   const {
     login,
-    password
+    password,
   } = req.body;
   const administartor = await Admin.findOne({
-    login
+    login,
   }).lean();
   // console.log(administartor);
   // console.log(login);
@@ -107,17 +108,19 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post('/administratorpanel/sendPrice', (req, res) => {
+router.post('/administratorpanel/sendPrice', async (req, res) => {
   const {
-    custemail
+    custemail,
   } = req.body;
+  const data = await Product.find();
   if (custemail) {
     main(custemail);
-    res.send(200).end();
+    res.render('index', {
+      data,
+    });
   } else {
     res.status(400).end();
   }
 });
-
 
 export default router;

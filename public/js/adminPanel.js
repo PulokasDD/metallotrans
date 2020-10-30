@@ -58,6 +58,9 @@ document.getElementById('result').addEventListener('click', async (e) => {
     }),
   })
   if (resp.status === 200) {
+    const html = await resp.text();
+    console.log(html);
+
     alert('Message sended')
   } else {
     console.log('miss SEND button');
