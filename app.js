@@ -4,7 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import session from 'express-session';
-import hbs from 'hbs';
+import Handlebars from 'handlebars';
+
 
 import indexRouter from './routes/index.js';
 import adminRouter from './routes/admin.js';
@@ -28,7 +29,7 @@ mongoose.connect('mongodb+srv://Ilya:12123@cluster0.fjvtz.mongodb.net/metallotra
 // view engine setup
 app.set('view engine', 'hbs');
 
-hbs.registerHelper('inc', function (val) {
+Handlebars.registerHelper('inc', function (val) {
   return val + 1;
 });
 
