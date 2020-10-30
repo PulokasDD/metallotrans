@@ -3,7 +3,7 @@ import sha256 from 'sha256';
 import Admin from '../models/admin.js';
 import Customer from '../models/customer.js';
 import Product from '../models/product.js';
-import main from '../mailer.js';
+import mailer from '../mailer.js';
 
 const router = express.Router();
 
@@ -94,7 +94,6 @@ router.post('/administratorpanel/user/edit', async (req, res) => {
     return res.status(400).send('Customer with this phone already registered');
   } else {
     let customer = await Customer.findById(id);
-    console.log(customer);
     customer.email = email;
     customer.phone = phone;
     customer.name = name;
@@ -190,7 +189,7 @@ router.post('/administratorpanel/sendPrice', (req, res) => {
     custemail
   } = req.body;
   if (custemail) {
-    main(custemail);
+    mailer(custemail);
     res.status(200).end();
   } else {
     res.status(400).end();

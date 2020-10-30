@@ -1,9 +1,6 @@
 import nodemailer from 'nodemailer';
 import gbs from 'nodemailer-express-handlebars';
 import Product from './models/product.js';
-import Handlebars from 'hbs';
-
-Handlebars.registerHelper('inc', (val) => val + 1);
 
 const options = {
   viewEngine: {
@@ -18,7 +15,7 @@ const options = {
 
 async function main(towhom) {
   let mailAccount = await nodemailer.createTestAccount();
-  const data = await Product.find().lean();
+  const arrProduct = await Product.find().lean();
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -38,7 +35,7 @@ async function main(towhom) {
     subject: 'Hello ✔ Test', // Subject line
     template: 'index', // plain text body
     context: {
-      data,
+      arrProduct,
     }, // html body
   });
 

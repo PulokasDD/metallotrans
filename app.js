@@ -1,16 +1,12 @@
 /* eslint-disable import/extensions */
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import session from 'express-session';
-import sha256 from 'sha256';
-import Handlebars from 'hbs';
-import bodyParser from 'body-parser';
+import hbs from 'hbs';
 
 import indexRouter from './routes/index.js';
-import priceRouter from './routes/price.js';
 import adminRouter from './routes/admin.js';
 
 // import seedNow from './seed.js';
@@ -32,7 +28,9 @@ mongoose.connect('mongodb+srv://Ilya:12123@cluster0.fjvtz.mongodb.net/metallotra
 // view engine setup
 app.set('view engine', 'hbs');
 
-Handlebars.registerHelper('inc', (val) => val + 1);
+hbs.registerHelper('inc', function (val) {
+  return val + 1;
+});
 
 app.set('trust proxy', 1);
 app.use(express.urlencoded({
@@ -65,7 +63,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', indexRouter);
-app.use('/price', priceRouter);
 app.use('/admin', adminRouter);
 
 const port = process.env.port || 3000;
